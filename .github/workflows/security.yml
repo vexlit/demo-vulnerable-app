@@ -1,0 +1,14 @@
+name: Vexlit Security Scan
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    name: SAST + SCA Scan
+    steps:
+      - uses: actions/checkout@v3
+      - uses: vexlit/action@v1

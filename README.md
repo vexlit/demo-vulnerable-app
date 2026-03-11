@@ -6,7 +6,7 @@
 
 Vexlit is an AI-powered security scanner that finds vulnerabilities and **automatically fixes them**.
 
-- **SAST** — 15 languages, 478+ rules
+- **SAST** — 34 languages, 478+ rules
 - **SCA** — npm, yarn, pnpm dependency scanning
 - **AI Fix** — Automated code fixes, verified by the scan engine
 - **PR Review** — GitHub Check Run + inline comments + AI fix suggestions

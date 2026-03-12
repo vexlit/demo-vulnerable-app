@@ -8,7 +8,7 @@ app.use(helmet());
 app.get('/user', (req, res) => {
   const id = req.query.id;
   const query = "SELECT * FROM users WHERE id = '" + id + "'";
-  db.query(query, [userId], (err, results) => res.json(results));
+  db.query("SELECT * FROM users WHERE id = ?", [userId], (err, results) => res.json(results));
 });
 
 app.get('/exec', (req, res) => {

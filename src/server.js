@@ -13,7 +13,7 @@ app.use(helmet())
 app.get("/user", (req, res) => {
   const userId = req.query.id;
   const query = "SELECT * FROM users WHERE id = '" + userId + "'";
-  db.query(query, [userId], (err, results) => {
+  db.query("SELECT * FROM users WHERE id = ?", [userId], (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(results);
   });

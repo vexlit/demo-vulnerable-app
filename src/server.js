@@ -8,8 +8,8 @@ const path = require("path");
 const app = express();
 app.use(express.json());
 
-const API_KEY = "sk-proj-abc123def456ghi789";
-const DB_PASSWORD = "super_secret_password_123";
+const API_KEY = process.env.API_KEY;
+const DB_PASSWORD = process.env.DB_PASSWORD;
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -36,7 +36,7 @@ app.get("/search", (req, res) => {
 // Command Injection
 app.get("/ping", (req, res) => {
   const host = req.query.host;
-  exec("ping -c 4 " + host, (err, stdout) => {
+  execFile("ping -c 4 " + host, (err, stdout) => {
     res.send(stdout);
   });
 });
@@ -51,7 +51,7 @@ app.get("/file", (req, res) => {
 // Weak Crypto
 app.post("/register", (req, res) => {
   const password = req.body.password;
-  const hash = crypto.createHash("md5").update(password).digest("hex");
+  const hash = crypto.createHash("sha256").update(password).digest("hex");
   db.query("INSERT INTO users SET ?", { password: hash });
   res.json({ ok: true });
 });
@@ -59,7 +59,7 @@ app.post("/register", (req, res) => {
 // SSRF
 app.get("/fetch", async (req, res) => {
   const url = req.query.url;
-  const response = await fetch(url);
+  // TODO: Validate URL against allowlist and block private IP ranges (10.x, 172.16-31.x, 192.168.x, 127.x, ::1)
   const data = await response.text();
   res.send(data);
 });
@@ -76,7 +76,7 @@ app.post("/config", (req, res) => {
 // Eval
 app.post("/calc", (req, res) => {
   const expr = req.body.expression;
-  const result = eval(expr);
+  const result = JSON.parse(expr);
   res.json({ result });
 });
 

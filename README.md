@@ -1,6 +1,6 @@
 # Vexlit Demo — Vulnerable Application
 
-> This repo contains **intentionally vulnerable code** to demonstrate [Vexlit](https://vexlit.com) security scanning.
+> This repo contains **intentionally vulnerable code** to demonstrate [VEXLIT](https://vexlit.ai) security scanning.
 
 ## What is Vexlit?
 
